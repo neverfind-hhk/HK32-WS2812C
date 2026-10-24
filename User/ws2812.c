@@ -1,7 +1,7 @@
 ﻿/**
   ******************************************************************************
   * @file    ws2812.c
-  * @brief   WS2812 / WS2812B 驱动实现（SPI 5bit 编码，阻塞发送）
+  * @brief   WS2812C-2020 驱动实现（SPI 10 位帧，阻塞发送）
   ******************************************************************************
   */
 
@@ -11,9 +11,12 @@
  *                              内部数据
  * ========================================================================== */
 
-/* 10bit 波形常量（WS2812C-2020 专用，SPI 8MHz → 1 bit = 125ns）
- *   0 码 = 1100000000 → 高 250ns / 低 1000ns
- *   1 码 = 1111100000 → 高 625ns / 低 625ns
+/* 码型常量：一个 SPI 帧（10 位）= 一个 WS2812 码
+ *
+ *   SPI 时钟 8MHz → 1 位 = 125ns，一帧 10 位 = 1.25μs（= WS2812C 位周期）
+ *
+ *   0 码 = 1100000000 (0x0300) → 高 250ns / 低 1000ns
+ *   1 码 = 1111100000 (0x03E0) → 高 625ns / 低 625ns
  *
  * 为什么 0 码取「2 高 8 低」而不是「3 高 7 低」：
  *   边沿变缓时，因 VIH(2.7V=54%)/VIL(0.7V=14%) 不对称，高电平会被拉长约
@@ -21,122 +24,80 @@
  *   0 码被误判成 1 码（表现为设 000 却亮白）。取 250ns 加边沿约 256ns，
  *   离上限还有 124ns 余量。
  *
- * 对照手册：T0H 220~380 / T0L 580~1000 / T1H 580~1000 / T1L 580~1000 ns */
-#define WS2812_PAT_0        0x0300UL
-#define WS2812_PAT_1        0x03E0UL
+ * 对照手册：T0H 220~380 / T0L 580~1000 / T1H 580~1000 / T1L 580~1000 ns
+ */
+#define WS2812_PAT_0        0x0300U
+#define WS2812_PAT_1        0x03E0U
 
-/* 像素缓冲区，按 WS2812 的物理顺序 GRB 存放（每个 LED 3 字节） */
-static uint8_t s_grb[WS2812_LED_MAX * 3U];
+/* 一颗灯 24 个码（G、R、B 各 8 位，MSB 先行） */
+#define WS2812_CODES_PER_LED    24U
 
-/* 单个 LED 编码后的 SPI 数据：24 bit x 10 bit = 240 bit = 30 字节 */
-static uint8_t s_spi_buf[30];
+/* 复位用零码个数：每个零码 10 位 = 1.25μs，
+ * 256 个 = 320μs > 280μs（WS2812C 复位门限） */
+#define WS2812_RESET_CODES      256U
+
+/* 整帧码缓冲：每颗灯 24 个 uint16_t，SetPixel 时直接写到对应位置 */
+static uint16_t s_code_buf[WS2812_LED_MAX * WS2812_CODES_PER_LED];
 
 /* ==========================================================================
  *                              内部函数
  * ========================================================================== */
 
 /**
-  * @brief  微秒级延时（SysTick 轮询，不产生中断）
-  * @param  us  延时微秒数
-  * @note   与 main.c 的 Delay_ms 共用 SysTick 定时器，顺序调用没问题
-  */
-static void WS2812_DelayUs(uint32_t us)
-{
-    uint32_t reload;
-
-    if ((us == 0U) || (SystemCoreClock == 0U))
-    {
-        return;
-    }
-
-    reload = (SystemCoreClock / 1000000U) - 1U;
-
-    SysTick->LOAD = reload;
-    SysTick->VAL  = 0U;
-    SysTick->CTRL = SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_ENABLE_Msk;
-
-    while (us != 0U)
-    {
-        while ((SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk) == 0U)
-        {
-            /* 等一次 1µs 计数溢出 */
-        }
-        us--;
-    }
-
-    SysTick->CTRL = 0U;
-    SysTick->VAL  = 0U;
-}
-
-/**
-  * @brief  把 24bit 颜色编码成 15 字节 SPI 数据
+  * @brief  把 24bit 颜色编码成 24 个码，直接写进码缓冲
   * @param  g    绿色
   * @param  r    红色
   * @param  b    蓝色
-  * @param  out  输出缓冲（15 字节）
+  * @param  out  输出缓冲（24 个 uint16_t）
   *
-  * @note   每个 WS2812 位 → 5 个 SPI 位：
-  *           数据 0 → 11000（0x18），高 0.50µs / 低 0.75µs
-  *           数据 1 → 11100（0x1C），高 0.75µs / 低 0.50µs
-  *         按 WS2812 规范，颜色按 G→R→B、每字节 MSB 先行。
+  * @note   按 WS2812 规范，颜色按 G→R→B、每字节 MSB 先行。
+  *         这里不再需要任何「凑字节」的位打包逻辑 —— 一个码就是一个
+  *         SPI 帧，直接写码型即可。
   */
-static void WS2812_Encode(uint8_t g, uint8_t r, uint8_t b, uint8_t *out)
+static void WS2812_Encode(uint8_t g, uint8_t r, uint8_t b, uint16_t *out)
 {
     uint32_t data;
-    uint32_t pattern;
-    uint8_t  byte   = 0U;
-    uint8_t  bitpos = 0U;
     int8_t   i;
-    int8_t   k;
 
     data = ((uint32_t)g << 16) | ((uint32_t)r << 8) | (uint32_t)b;
 
     for (i = 23; i >= 0; i--)
     {
-        /* 取当前数据位，映射成 20bit 波形（WS2812C 专用） */
-        pattern = ((data & (1UL << (uint8_t)i)) != 0UL) ? WS2812_PAT_1 : WS2812_PAT_0;
-
-        /* 高位先出 */
-        for (k = 9; k >= 0; k--)
-        {
-            byte = (uint8_t)((byte << 1) | ((pattern >> (uint8_t)k) & 0x01UL));
-
-            if (++bitpos == 8U)
-            {
-                *out++  = byte;
-                byte    = 0U;
-                bitpos  = 0U;
-            }
-        }
+        *out++ = (((data & (1UL << (uint8_t)i)) != 0UL) ? (uint16_t)WS2812_PAT_1
+                                                        : (uint16_t)WS2812_PAT_0);
     }
 }
 
 /**
-  * @brief  产生 WS2812 复位信号（数据线保持低电平）
-  * @note   WS2812B 要求复位低电平 >280µs。先把 MOSI 脚临时切成普通
-  *         GPIO 输出低，保证这段时间绝对是低电平（SPI 关闭后引脚状态
-  *         不确定，直接靠 SPI 空闲电平不可靠），延时完再切回复用。
+  * @brief  产生 WS2812C 复位信号（数据线保持低电平 >280μs）
+  *
+  * @note   做法：连续写入 0 码。一个 0 码帧是 10 个 0 位 = 全低电平
+  *           1.25μs，256 个 = 320μs > 280μs 要求。
+  *
+  * @note   ★ 这里直接操作 SPI 寄存器而不是调用 SPI1_WriteFrame()：
+  *           256 次函数调用的开销会把时间拉长不说，关键是没必要。
+  *           另外绝不能传空指针 —— 曾经传 0x00 给发送函数，让它去读
+  *           地址 0x00000000（Cortex-M0 上是中断向量表），读出来的是
+  *           SP 的低字节（本工程为 0xB0），发出去就是一串高电平脉冲，
+  *           整个「复位」反而变成了一帧错误数据。
   */
 static void WS2812_Reset(void)
 {
-    GPIO_InitTypeDef gpio;
+    uint16_t i;
 
-    gpio.GPIO_Pin    = SPI1_MOSI_PIN;
-    gpio.GPIO_Mode   = GPIO_Mode_OUT;
-    gpio.GPIO_Speed  = GPIO_Speed_Level_2;
-    gpio.GPIO_OType  = GPIO_OType_PP;
-    gpio.GPIO_PuPd   = GPIO_PuPd_NOPULL;
-    gpio.GPIO_Schmit = GPIO_Schmit_Enable;
+    for (i = 0U; i < WS2812_RESET_CODES; i++)
+    {
+        while ((SPI1->SR & SPI_SR_TXE) == 0U)
+        {
+            /* 等发送缓冲空 */
+        }
+        SPI1->DR = 0U;              /* 10 位全 0 = 一整帧低电平 */
+    }
 
-    GPIO_Init(SPI1_GPIO_PORT, &gpio);
-    GPIO_ResetBits(SPI1_GPIO_PORT, SPI1_MOSI_PIN);
-
-    WS2812_DelayUs(300U);               /* >280µs 即可，留点余量 */
-
-    /* 切回 SPI 复用功能 */
-    gpio.GPIO_Mode = GPIO_Mode_AF;
-    GPIO_Init(SPI1_GPIO_PORT, &gpio);
-    GPIO_PinAFConfig(SPI1_GPIO_PORT, GPIO_PinSource6, GPIO_AF_2);
+    /* 等最后一位真正移出，保证复位期间 MOSI 一直是低电平 */
+    while ((SPI1->SR & SPI_SR_BSY) != 0U)
+    {
+    }
 }
 
 /* ==========================================================================
@@ -144,22 +105,27 @@ static void WS2812_Reset(void)
  * ========================================================================== */
 
 /**
-  * @brief  初始化：清零缓冲区 + 初始化 SPI1（4MHz）
+  * @brief  初始化：把整帧码缓冲填成 0 码（全黑）+ 初始化 SPI1（8MHz）
   */
 void WS2812_Init(void)
 {
     uint16_t i;
 
-    for (i = 0U; i < (uint16_t)sizeof(s_grb); i++)
+    for (i = 0U; i < (uint16_t)(WS2812_LED_MAX * WS2812_CODES_PER_LED); i++)
     {
-        s_grb[i] = 0U;
+        s_code_buf[i] = (uint16_t)WS2812_PAT_0;     /* 全 0 码 = 全黑 */
     }
 
-    SPI1_Init();                        /* 16MHz 只发送模式，见 spi1.h */
+    SPI1_Init();                        /* 8MHz、10 位帧、只发送，见 spi1.h */
 }
 
 /**
-  * @brief  设置单个像素颜色（只改缓冲，不发送）
+  * @brief  设置单个像素颜色（编码到整帧缓冲，不发送）
+  * @param  idx  像素索引，0 ~ WS2812_LED_MAX-1
+  * @param  r    红色 0~255
+  * @param  g    绿色 0~255
+  * @param  b    蓝色 0~255
+  * @note   注意 WS2812 的物理顺序是 GRB，本函数内部已处理，按 RGB 传即可
   */
 void WS2812_SetPixel(uint16_t idx, uint8_t r, uint8_t g, uint8_t b)
 {
@@ -168,9 +134,7 @@ void WS2812_SetPixel(uint16_t idx, uint8_t r, uint8_t g, uint8_t b)
         return;
     }
 
-    s_grb[idx * 3U + 0U] = g;           /* WS2812 物理顺序是 G → R → B */
-    s_grb[idx * 3U + 1U] = r;
-    s_grb[idx * 3U + 2U] = b;
+    WS2812_Encode(g, r, b, &s_code_buf[idx * WS2812_CODES_PER_LED]);
 }
 
 /**
@@ -187,23 +151,16 @@ void WS2812_Fill(uint8_t r, uint8_t g, uint8_t b)
 }
 
 /**
-  * @brief  编码并发送全部像素数据
+  * @brief  把整帧缓冲一次性发出去
+  * @note   全部 LED 的码一次 SPI 发完，中间没有函数调用间隙；
+  *         发完自动产生 >300μs 的复位低电平。
+  * @note   每帧 10 位 = 1 个码，所以帧边界一定是码边界，
+  *         高电平不会跨帧被劈开（详见 spi1.h 的说明）。
   */
 void WS2812_Show(void)
 {
-    uint16_t i;
+    SPI1_TransmitFrames(s_code_buf,
+                        (uint16_t)(WS2812_LED_MAX * WS2812_CODES_PER_LED));
 
-    for (i = 0U; i < WS2812_LED_MAX; i++)
-    {
-        WS2812_Encode(s_grb[i * 3U + 0U],
-                      s_grb[i * 3U + 1U],
-                      s_grb[i * 3U + 2U],
-                      s_spi_buf);
-
-        /* 阻塞发送，保证波形连续不被打断 */
-        SPI1_Transmit(s_spi_buf, 30U);
-    }
-
-    /* 整帧发完，产生复位低电平让灯珠锁存 */
     WS2812_Reset();
 }

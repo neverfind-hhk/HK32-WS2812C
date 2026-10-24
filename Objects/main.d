@@ -11,4 +11,4 @@
   Driver\inc\hk32f030m_spi.h Driver\inc\hk32f030m_tim.h \
   Driver\inc\hk32f030m_usart.h Driver\inc\hk32f030m_wwdg.h \
   Driver\inc\hk32f030m_awu.h Driver\inc\hk32f030m_beep.h \
-  Driver\inc\hk32f030m_dbgmcu.h User\spi1.h User\ws2812.h
+  Driver\inc\hk32f030m_dbgmcu.h User\ws2812.h User\spi1.h

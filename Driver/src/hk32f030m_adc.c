@@ -1163,7 +1163,7 @@ void ADC_ConfigADCGAIN_SEL(ADC_TypeDef *ADCx, uint32_t GAIN_SEL1, uint32_t GAIN_
   * @brief  Get real VDDA when the power supply voltage changes.
   * @note  Get the VDDA using the following formula
   *    VDDA = 5 V x VREFINT_CAL / VREFINT_DATA;
-  *   VREFINT_CAL is the VREFINT calibration value acquired at VDD = 5 V(25¡ãC)(*VREFINT_CAL_ADDR)
+  *   VREFINT_CAL is the VREFINT calibration value acquired at VDD = 5 V(25°C)(*VREFINT_CAL_ADDR)
   *   VREFINT_DATA is the actual VREFINT output value converted by ADC(VrefADbuff)
   *  @param VrefADbuff is the ADC sampling value of internal reference voltage
   * @retval VDDA(in mV)

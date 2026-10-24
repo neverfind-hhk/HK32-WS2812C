@@ -1,4 +1,4 @@
-﻿/**
+/**
   ******************************************************************************
   * @file    hk32f030m_awu.c
   * @author  Rakan.z
@@ -60,7 +60,7 @@ void AWU_CLKConfig(AWU_CLK_TYPE eAWU_CLK)
   *       when awu_wbusy =1 ,the write operation on the awu-rlr register will be invalid.
   * @return ErrorStatus: the AWU result
   *       SUCCESS:AWU timer start success
-  *       ERROR��AWU timer start error
+  *       ERROR??AWU timer start error
   */
 ErrorStatus AWU_TimerCounterAndStart(uint32_t TimerCounter)
 {

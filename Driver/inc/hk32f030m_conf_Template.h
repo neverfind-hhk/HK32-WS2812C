@@ -1,4 +1,4 @@
-﻿/**
+/**
   ******************************************************************************
   * @file    hk32f030m_conf_Template.h
   * @brief   hk32f030m configuration file of backup.

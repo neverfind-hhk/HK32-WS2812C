@@ -1,33 +1,47 @@
 /**
   ******************************************************************************
   * @file    main.c
-  * @brief   HK32F030MF4P6 主程序
+  * @brief   HK32F030MF4P6 + 2 颗 WS2812C-2020 最小示例
   *
-  *          时钟：HSI 32MHz 直接作为 SYSCLK，HCLK = SYSCLK，PCLK = HCLK。
-  *          该配置由启动文件的 Reset_Handler 自动调用 SystemInit() 完成，
-  *          进入 main() 时时钟已经就绪，不需要再手工配置。
+  *          时钟：HSI 32MHz，SYSCLK = HCLK = PCLK，由 SystemInit() 在
+  *          Reset_Handler 里配置完成，进入 main() 时已经就绪，无需手工配置。
   *
-  * @note    上电流程：
-  *            Reset_Handler  ->  SystemInit()  ->  __main  ->  main()
-  *          其中 __main 负责散列加载（.data 搬运、.bss 清零），
-  *          所以 main() 里可以直接使用已初始化的全局变量。
+  *          程序流程：
+  *            1. WS2812_Init()  —— 内部完成 SPI1 初始化（8MHz、10 位帧、只发送）
+  *            2. 先全灭一次，清掉上电可能残留的旧数据
+  *            3. 进入循环，两颗灯每 500ms 换一个颜色
+  *
+  *          ★ 注意第 0 颗灯目前故意把 R / B 通道对调后再发送，第 1 颗灯按
+  *            正常 RGB 参数发送，用来对比确认 WS2812C 到底是 GRB 还是 RGB
+  *            顺序。颜色顺序定下来之后，把第 0 颗那三行改成和第 1 颗一样
+  *            的写法即可。
   ******************************************************************************
   */
 
 #include "main.h"
-#include "spi1.h"
 #include "ws2812.h"
 
-/* 演示开关 ---------------------------------------------------------------- */
-/* 单独使用 SPI1（接普通 SPI 器件时置 1；接了 WS2812 就置 0，两者别同时开） */
-#define SPI_DEMO_ENABLE     0
-/* 驱动 WS2812 灯带（WS2812_Init 内部会初始化 SPI1） */
-#define WS2812_DEMO_ENABLE  1
+/* 换色用的色表 */
+static const uint8_t s_color[14][3] =
+{
+    { 255U,   0U,   0U },       /* 0 */
+		{ 255U,   128U,   0U },			/* 30 */
+		{ 255U,   255U,   0U },			/* 60 */
+		{ 128U,   255U,   0U },			/* 90 */
+		{ 0U,   255U,   0U },				/* 120 */
+		{ 0U,   255U,   128U },			/* 150 */
+		{ 0U,   255U,   255U },			/* 180 */
+		{ 0U,   128U,   255U },			/* 210 */
+    {   0U, 0U,   255U },       /* 240 */
+    {   128U,   0U, 255U },     /* 270 */
+    {   255U,   0U, 255U },     /* 300 */		
+    {   255U,   0U, 128U },     /* 330 */		
+    { 255U, 255U, 255U },       /* 白 */
+    {   0U,   0U,   0U }        /* 灭 */
+};
 
-/* 私有函数声明 --------------------------------------------------------------*/
-#if (LED_DEMO_ENABLE == 1)
-static void LED_Init(void);
-#endif
+/* 当前色表索引 */
+static uint8_t s_color_step = 0U;
 
 /**
   * @brief  主函数
@@ -36,93 +50,44 @@ static void LED_Init(void);
   */
 int main(void)
 {
-    /* ------------------------------------------------------------------
-     * 需要确认实际时钟时可打开这段，把配置读回来核对：
-     *
-     *   RCC_ClocksTypeDef RCC_Clocks;
-     *   RCC_GetClocksFreq(&RCC_Clocks);
-     *   RCC_Clocks.SYSCLK_Frequency 应为 32000000
-     *   RCC_Clocks.HCLK_Frequency   应为 32000000
-     *   RCC_Clocks.PCLK_Frequency   应为 32000000
-     * ------------------------------------------------------------------ */
-
-#if (LED_DEMO_ENABLE == 1)
-    LED_Init();
-#endif
-
-    /* 用户初始化区 ------------------------------------------------ */
-
-#if (WS2812_DEMO_ENABLE == 1)
-    /* WS2812C-2020：数据线走 PC6（脚16 = SPI1_MOSI）
-     * 编码 20bit @ 16MHz，每颗 LED 约 30us，阻塞发送。详见 ws2812.h */
+    /* WS2812_Init() 内部会调用 SPI1_Init()，不需要再单独初始化 SPI */
     WS2812_Init();
 
-    /* 两颗灯分别设成不同颜色 —— 这样一眼就能看出两颗是否都收到数据：
-     *   第 0 颗 = 红，第 1 颗 = 绿
-     * 若只亮第 0 颗，说明数据没发到第二颗（先查 DIN/DO 级联接线）。 */
-    WS2812_SetPixel(0, 0, 0, 0);          /* 红 */
-    WS2812_SetPixel(1, 0, 0, 0);          /* 绿 */
+    /* 上电先全灭一次，确保两颗灯都不会残留旧数据 */
+    WS2812_Fill(0, 0, 0);
     WS2812_Show();
-#elif (SPI_DEMO_ENABLE == 1)
-    SPI1_Init();
-#endif
-
-    /* ------------------------------------------------------------ */
+    Delay_ms(200);
 
     while (1)
     {
-#if (LED_DEMO_ENABLE == 1)
-        GPIO_Toggle(LED_GPIO_PORT, LED_GPIO_PIN);
-#endif
+        /* 第 0 颗：R / B 对调后发送（颜色顺序对比用，定下来后改成正常写法） */
+        WS2812_SetPixel(0, s_color[s_color_step][2],
+                           s_color[s_color_step][1],
+                           s_color[s_color_step][0]);
 
-#if (WS2812_DEMO_ENABLE == 1)
-        /* 两颗灯已在上面的初始化区点亮并保持常亮。
-         * 需要动效时，把下面几行取消注释（红绿交替 / 全亮全灭循环）：
-         *
-         *   WS2812_SetPixel(0, 128, 0, 0); WS2812_SetPixel(1, 0, 128, 0);
-         *   WS2812_Show(); Delay_ms(500);
-         *   WS2812_SetPixel(0, 0, 128, 0); WS2812_SetPixel(1, 128, 0, 0);
-         *   WS2812_Show(); Delay_ms(500);
-         */
-        Delay_ms(500);		
-#else
-        Delay_ms(10000);
-#endif
+        /* 第 1 颗：按正常 RGB 参数发送 */
+        WS2812_SetPixel(1, s_color[s_color_step][0],
+                           s_color[s_color_step][1],
+                           s_color[s_color_step][2]);
+
+        WS2812_Show();                  /* 发送整帧 + 自动产生复位脉冲 */
+
+        s_color_step++;
+        if (s_color_step >= 14U)
+        {
+            s_color_step = 0U;
+        }
+
+        Delay_ms(500);
     }
 }
 
-#if (LED_DEMO_ENABLE == 1)
 /**
-  * @brief  LED 引脚初始化
-  * @note   引脚定义在 main.h 顶部，请按原理图修改。
-  */
-static void LED_Init(void)
-{
-    GPIO_InitTypeDef GPIO_InitStructure;
-
-    /* 使能 GPIO 端口时钟 */
-    RCC_AHBPeriphClockCmd(LED_GPIO_CLK, ENABLE);
-
-    GPIO_InitStructure.GPIO_Pin    = LED_GPIO_PIN;
-    GPIO_InitStructure.GPIO_Mode   = GPIO_Mode_OUT;      /* 推挽输出 */
-    GPIO_InitStructure.GPIO_Speed  = GPIO_Speed_Level_1; /* 低速 2MHz 够用 */
-    GPIO_InitStructure.GPIO_OType  = GPIO_OType_PP;
-    GPIO_InitStructure.GPIO_PuPd   = GPIO_PuPd_NOPULL;
-    GPIO_InitStructure.GPIO_Schmit = GPIO_Schmit_Enable;
-
-    GPIO_Init(LED_GPIO_PORT, &GPIO_InitStructure);
-
-    /* 默认熄灭（按需改成 GPIO_ResetBits 以适配低电平点灯的板子） */
-    GPIO_SetBits(LED_GPIO_PORT, LED_GPIO_PIN);
-}
-#endif
-
-/**
-  * @brief  SysTick 轮询式毫秒延时（阻塞）
+  * @brief  SysTick 轮询式毫秒延时（阻塞，不产生中断）
   * @param  ms  延时毫秒数
-  * @note   这里用轮询 COUNTFLAG 的方式，不开启 SysTick 中断，
-  *         因此与 hk32f030m_it.c 中的 SysTick_Handler 互不干扰；
-  *         但两者共用 SysTick 定时器，若改用中断式滴答请勿同时调用本函数。
+  * @note   用轮询 COUNTFLAG 的方式，不开启 SysTick 中断，因此与
+  *         hk32f030m_it.c 里的 SysTick_Handler 互不干扰；但两者共用
+  *         SysTick 定时器，若改用中断式滴答就不要同时调用本函数。
   */
 void Delay_ms(uint32_t ms)
 {

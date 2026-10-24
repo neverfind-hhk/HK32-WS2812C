@@ -96,7 +96,7 @@
 */ 
 
 #define SYSCFG_Lockup_TIM1Break_OFF       ((uint32_t)0x00000000U)
-#define SYSCFG_Lockup_TIM1Break_ON        ((uint32_t)0x80000000U)   /* CFGR1 位31 = LOCKUP_LOCK */
+#define SYSCFG_Lockup_TIM1Break_ON        ((uint32_t)0x80000000U)   /* CFGR1 λ31 = LOCKUP_LOCK */
 
 #define IS_SYSCFG_LOCKUP_TIM1BREAK_ONOFF(ONOFF) (((ONOFF) == SYSCFG_Lockup_TIM1Break_OFF)       || \
                                                ((ONOFF) == SYSCFG_Lockup_TIM1Break_ON)   )
