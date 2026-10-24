@@ -54,14 +54,14 @@ int main(void)
 
 #if (WS2812_DEMO_ENABLE == 1)
     /* WS2812C-2020：数据线走 PC6（脚16 = SPI1_MOSI）
-     * 编码 20bit @ 16MHz，每颗 LED 约 30us，阻塞发送。详见 ws2812.h */
+     * 编码 10 位帧 @ 8MHz，每颗 LED 约 30us，阻塞发送。详见 ws2812.h */
     WS2812_Init();
 
     /* 两颗灯分别设成不同颜色 —— 这样一眼就能看出两颗是否都收到数据：
      *   第 0 颗 = 红，第 1 颗 = 绿
      * 若只亮第 0 颗，说明数据没发到第二颗（先查 DIN/DO 级联接线）。 */
-    WS2812_SetPixel(0, 0, 0, 0);          /* 红 */
-    WS2812_SetPixel(1, 0, 0, 0);          /* 绿 */
+    WS2812_SetPixel(0, 255, 0, 255);          /* 红 */
+    WS2812_SetPixel(1, 0, 255, 0);          /* 绿 */
     WS2812_Show();
 #elif (SPI_DEMO_ENABLE == 1)
     SPI1_Init();

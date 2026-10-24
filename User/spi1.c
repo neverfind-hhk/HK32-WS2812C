@@ -1,14 +1,14 @@
-/**
+﻿/**
   ******************************************************************************
   * @file    spi1.c
-  * @brief   SPI1 主机驱动实现（只发送模式）—— HK32F030MF4P6
+  * @brief   SPI1 主机驱动实现（只发送模式 + 10 位帧）—— HK32F030MF4P6
   ******************************************************************************
   */
 
 #include "spi1.h"
 
 /**
-  * @brief  初始化 SPI1（只发送模式）与相关 GPIO
+  * @brief  初始化 SPI1（只发送模式 + 10 位帧）与相关 GPIO
   */
 void SPI1_Init(void)
 {
@@ -26,7 +26,7 @@ void SPI1_Init(void)
      * ------------------------------------------------------------------ */
     GPIO_InitStructure.GPIO_Pin    = SPI1_SCK_PIN | SPI1_MOSI_PIN;
     GPIO_InitStructure.GPIO_Mode   = GPIO_Mode_AF;
-    GPIO_InitStructure.GPIO_Speed  = GPIO_Speed_Level_2;   /* 16MHz 必须用高速档 */
+    GPIO_InitStructure.GPIO_Speed  = GPIO_Speed_Level_2;   /* 最高档也只有 10MHz，故 SPI 取 8MHz */
     GPIO_InitStructure.GPIO_OType  = GPIO_OType_PP;
     GPIO_InitStructure.GPIO_PuPd   = GPIO_PuPd_NOPULL;
     GPIO_InitStructure.GPIO_Schmit = GPIO_Schmit_Enable;
@@ -49,11 +49,11 @@ void SPI1_Init(void)
     SPI1_CS_HIGH();
 
     /* ------------------------------------------------------------------
-     * 4. SPI1 参数 —— 只发送模式
+     * 4. SPI1 参数 —— 只发送模式 + 10 位帧
      * ------------------------------------------------------------------ */
     SPI_InitStructure.SPI_Direction         = SPI_Direction_1Line_Tx;  /* 只输出，不接收 */
     SPI_InitStructure.SPI_Mode              = SPI_Mode_Master;
-    SPI_InitStructure.SPI_DataSize          = SPI_DataSize_8b;
+    SPI_InitStructure.SPI_DataSize          = SPI1_DATA_SIZE;   /* 10 位 = 一个 WS2812 码 */
     SPI_InitStructure.SPI_CPOL              = SPI_CPOL_Low;      /* 模式 0 */
     SPI_InitStructure.SPI_CPHA              = SPI_CPHA_1Edge;    /* 模式 0 */
     SPI_InitStructure.SPI_NSS               = SPI_NSS_Soft;      /* 片选软件管理 */
@@ -69,17 +69,20 @@ void SPI1_Init(void)
 }
 
 /**
-  * @brief  发送一个字节（只等发送缓冲空，不等待接收）
-  * @param  tx  要发送的字节
-  * @note   只写模式下 RXNE 不会有效，所以这里绝不去等它 —— 否则每字节
+  * @brief  写入一帧（只等发送缓冲空，不等待接收）
+  * @param  frame  帧数据，只有低 SPI1_DATA_BITS 位有效
+  * @note   只写模式下 RXNE 不会有效，所以这里绝不去等它 —— 否则每帧
   *         都会跑满超时循环，把 WS2812 的位流切成碎帧。
   */
-void SPI1_WriteByte(uint8_t tx)
+void SPI1_WriteFrame(uint16_t frame)
 {
     uint32_t timeout;
 
+    /* ★ 直接读寄存器，不走 SPI_GetFlagStatus() / SPI_SendData8() 函数调用 ——
+     *   那两个函数每次调用约 15 个 CPU 周期，加上外层函数调用开销，
+     *   每帧会多出约 1μs 空隙，把 WS2812 的低电平拉长。 */
     timeout = SPI1_TIMEOUT;
-    while (SPI_GetFlagStatus(SPI1, SPI_FLAG_TXE) == RESET)
+    while ((SPI1->SR & SPI_SR_TXE) == 0U)
     {
         if (--timeout == 0U)
         {
@@ -87,7 +90,7 @@ void SPI1_WriteByte(uint8_t tx)
         }
     }
 
-    SPI_SendData8(SPI1, tx);
+    SPI1->DR = (uint32_t)frame;
 }
 
 /**
@@ -100,7 +103,7 @@ void SPI1_WaitDone(void)
     uint32_t timeout;
 
     timeout = SPI1_TIMEOUT;
-    while (SPI_GetFlagStatus(SPI1, SPI_FLAG_BSY) == SET)
+    while ((SPI1->SR & SPI_SR_BSY) != 0U)
     {
         if (--timeout == 0U)
         {
@@ -110,25 +113,43 @@ void SPI1_WaitDone(void)
 }
 
 /**
-  * @brief  连续发送若干字节（阻塞，发完自动等 BSY）
-  * @param  buf  数据缓冲区
-  * @param  len  字节数
-  * @note   字节之间只有 SPI 移位时间（16MHz 下 0.5µs），位流天然连续，
-  *         不会触发 WS2812 的 280µs 复位判断。
+  * @brief  连续发送若干帧（阻塞，发完自动等 BSY）
+  * @param  frames  帧数组，每个元素一帧（低 SPI1_DATA_BITS 位有效）
+  * @param  num     帧数
+  *
+  * @note   ★ 每帧 10 位 = 一个 WS2812 码（8MHz 下 1.25μs）。因为帧边界
+  *         一定落在码边界上，高电平永远不会跨帧被劈开；帧与帧之间的
+  *         任何空隙只会把低电平拉长，而低电平拉长对 WS2812 无害
+  *         （只要远小于 280μs 复位门限）。这是结构性保证。
+  *
+  * @note   这里刻意没有加 __disable_irq()：本方案下即使被中断打断，
+  *         最坏也只是把低电平拉长几十 μs，仍远低于 280μs 复位门限，
+  *         不会破坏数据。若日后需要绝对确定，可在前后自行加
+  *         __get_PRIMASK() / __disable_irq() / __set_PRIMASK() 关中断。
+  *
+  * @note   本函数是热点：每帧只有 40 个 CPU 周期（1.25μs @ 32MHz），
+  *         建议用 -O1/-O2 以上优化等级编译。即便 -O0 跟不上，
+  *         也只是低电平变长，不会破坏数据。
   */
-void SPI1_Transmit(const uint8_t *buf, uint16_t len)
+void SPI1_TransmitFrames(const uint16_t *frames, uint16_t num)
 {
-    uint16_t i;
+    uint16_t i = 0U;
 
-    if ((buf == 0) || (len == 0U))
+    if ((frames == 0) || (num == 0U))
     {
         return;
     }
 
-    for (i = 0U; i < len; i++)
+    while (i < num)
     {
-        SPI1_WriteByte(buf[i]);
+        while ((SPI1->SR & SPI_SR_TXE) == 0U)
+        {
+        }
+        SPI1->DR = (uint32_t)frames[i];
+        i++;
     }
 
-    SPI1_WaitDone();                        /* 等最后一位真正移出 */
+    while ((SPI1->SR & SPI_SR_BSY) != 0U)
+    {
+    }
 }
