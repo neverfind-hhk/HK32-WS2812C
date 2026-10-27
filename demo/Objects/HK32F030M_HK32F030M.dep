@@ -1,0 +1,546 @@
+Dependencies for Project 'HK32F030M', Target 'HK32F030M': (DO NOT MODIFY !)
+CompilerVersion: 6220000::V6.22::ARMCLANG
+F (.\User\hk32f030m_conf.h)(0x6ADB13E5)()
+F (.\User\hk32f030m_it.c)(0x6ADB13E5)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wall -Wextra -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./Driver/inc -I ./CMSIS/Include -I ./User-D__UVISION_VERSION="540" -DHK32F030MF4P6-o ./objects/hk32f030m_it.o -MMD)
+I (User\main.h)(0x6AE02FFD)
+I (CMSIS\Include\hk32f030m.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_2k.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_common.h)(0x6ADB13E4)
+I (CMSIS\Include\.\core_cm0.h)(0x6ACDD828)
+I (CMSIS\Include\.\system_hk32f030m.h)(0x6ADC4849)
+I (User\hk32f030m_conf.h)(0x6ADB13E5)
+I (Driver\inc\hk32f030m_rcc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_conf.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_crc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_exti.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_flash.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_gpio.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_misc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_adc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_syscfg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_def.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_i2c.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_iwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_pwr.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_spi.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_tim.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_usart.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_wwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_awu.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_beep.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_dbgmcu.h)(0x6ADC4849)
+I (User\hk32f030m_it.h)(0x6ADB13E5)
+F (.\User\hk32f030m_it.h)(0x6ADB13E5)()
+F (.\User\main.c)(0x6AE03058)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wall -Wextra -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./Driver/inc -I ./CMSIS/Include -I ./User-D__UVISION_VERSION="540" -DHK32F030MF4P6-o ./objects/main.o -MMD)
+I (User\main.h)(0x6AE02FFD)
+I (CMSIS\Include\hk32f030m.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_2k.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_common.h)(0x6ADB13E4)
+I (CMSIS\Include\.\core_cm0.h)(0x6ACDD828)
+I (CMSIS\Include\.\system_hk32f030m.h)(0x6ADC4849)
+I (User\hk32f030m_conf.h)(0x6ADB13E5)
+I (Driver\inc\hk32f030m_rcc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_conf.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_crc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_exti.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_flash.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_gpio.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_misc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_adc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_syscfg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_def.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_i2c.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_iwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_pwr.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_spi.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_tim.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_usart.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_wwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_awu.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_beep.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_dbgmcu.h)(0x6ADC4849)
+F (.\User\main.h)(0x6AE02FFD)()
+F (.\Driver\src\hk32f030m_adc.c)(0x6ADC4849)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wall -Wextra -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./Driver/inc -I ./CMSIS/Include -I ./User-D__UVISION_VERSION="540" -DHK32F030MF4P6-o ./objects/hk32f030m_adc.o -MMD)
+I (Driver\inc\hk32f030m_adc.h)(0x6ADB13E4)
+I (CMSIS\Include\hk32f030m.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_2k.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_common.h)(0x6ADB13E4)
+I (CMSIS\Include\.\core_cm0.h)(0x6ACDD828)
+I (CMSIS\Include\.\system_hk32f030m.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_conf.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_rcc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_crc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_exti.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_flash.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_gpio.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_misc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_syscfg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_def.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_i2c.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_iwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_pwr.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_spi.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_tim.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_usart.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_wwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_awu.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_beep.h)(0x6ADB13E4)
+F (.\Driver\src\hk32f030m_awu.c)(0x6ADC4849)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wall -Wextra -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./Driver/inc -I ./CMSIS/Include -I ./User-D__UVISION_VERSION="540" -DHK32F030MF4P6-o ./objects/hk32f030m_awu.o -MMD)
+I (Driver\inc\hk32f030m_awu.h)(0x6ADB13E4)
+I (CMSIS\Include\hk32f030m.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_2k.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_common.h)(0x6ADB13E4)
+I (CMSIS\Include\.\core_cm0.h)(0x6ACDD828)
+I (CMSIS\Include\.\system_hk32f030m.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_conf.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_rcc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_crc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_exti.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_flash.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_gpio.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_misc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_adc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_syscfg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_def.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_i2c.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_iwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_pwr.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_spi.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_tim.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_usart.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_wwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_beep.h)(0x6ADB13E4)
+F (.\Driver\src\hk32f030m_beep.c)(0x6ADB13E4)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wall -Wextra -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./Driver/inc -I ./CMSIS/Include -I ./User-D__UVISION_VERSION="540" -DHK32F030MF4P6-o ./objects/hk32f030m_beep.o -MMD)
+I (Driver\inc\hk32f030m_beep.h)(0x6ADB13E4)
+I (CMSIS\Include\hk32f030m.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_2k.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_common.h)(0x6ADB13E4)
+I (CMSIS\Include\.\core_cm0.h)(0x6ACDD828)
+I (CMSIS\Include\.\system_hk32f030m.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_conf.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_rcc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_crc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_exti.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_flash.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_gpio.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_misc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_adc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_syscfg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_def.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_i2c.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_iwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_pwr.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_spi.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_tim.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_usart.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_wwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_awu.h)(0x6ADB13E4)
+F (.\Driver\src\hk32f030m_crc.c)(0x6ADC4849)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wall -Wextra -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./Driver/inc -I ./CMSIS/Include -I ./User-D__UVISION_VERSION="540" -DHK32F030MF4P6-o ./objects/hk32f030m_crc.o -MMD)
+I (Driver\inc\hk32f030m_crc.h)(0x6ADC4849)
+I (CMSIS\Include\hk32f030m.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_2k.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_common.h)(0x6ADB13E4)
+I (CMSIS\Include\.\core_cm0.h)(0x6ACDD828)
+I (CMSIS\Include\.\system_hk32f030m.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_conf.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_rcc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_exti.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_flash.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_gpio.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_misc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_adc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_syscfg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_def.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_i2c.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_iwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_pwr.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_spi.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_tim.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_usart.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_wwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_awu.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_beep.h)(0x6ADB13E4)
+F (.\Driver\src\hk32f030m_dbgmcu.c)(0x6ADC4849)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wall -Wextra -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./Driver/inc -I ./CMSIS/Include -I ./User-D__UVISION_VERSION="540" -DHK32F030MF4P6-o ./objects/hk32f030m_dbgmcu.o -MMD)
+I (Driver\inc\hk32f030m_dbgmcu.h)(0x6ADC4849)
+I (CMSIS\Include\hk32f030m.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_2k.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_common.h)(0x6ADB13E4)
+I (CMSIS\Include\.\core_cm0.h)(0x6ACDD828)
+I (CMSIS\Include\.\system_hk32f030m.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_conf.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_rcc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_crc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_exti.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_flash.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_gpio.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_misc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_adc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_syscfg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_def.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_i2c.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_iwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_pwr.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_spi.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_tim.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_usart.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_wwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_awu.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_beep.h)(0x6ADB13E4)
+F (.\Driver\src\hk32f030m_exti.c)(0x6ADC4849)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wall -Wextra -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./Driver/inc -I ./CMSIS/Include -I ./User-D__UVISION_VERSION="540" -DHK32F030MF4P6-o ./objects/hk32f030m_exti.o -MMD)
+I (Driver\inc\hk32f030m_exti.h)(0x6ADC4849)
+I (CMSIS\Include\hk32f030m.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_2k.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_common.h)(0x6ADB13E4)
+I (CMSIS\Include\.\core_cm0.h)(0x6ACDD828)
+I (CMSIS\Include\.\system_hk32f030m.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_conf.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_rcc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_crc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_flash.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_gpio.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_misc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_adc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_syscfg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_def.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_i2c.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_iwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_pwr.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_spi.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_tim.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_usart.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_wwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_awu.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_beep.h)(0x6ADB13E4)
+F (.\Driver\src\hk32f030m_flash.c)(0x6ADB13E4)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wall -Wextra -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./Driver/inc -I ./CMSIS/Include -I ./User-D__UVISION_VERSION="540" -DHK32F030MF4P6-o ./objects/hk32f030m_flash.o -MMD)
+I (Driver\inc\hk32f030m_flash.h)(0x6ADB13E4)
+I (CMSIS\Include\hk32f030m.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_2k.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_common.h)(0x6ADB13E4)
+I (CMSIS\Include\.\core_cm0.h)(0x6ACDD828)
+I (CMSIS\Include\.\system_hk32f030m.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_conf.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_rcc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_crc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_exti.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_gpio.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_misc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_adc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_syscfg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_def.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_i2c.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_iwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_pwr.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_spi.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_tim.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_usart.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_wwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_awu.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_beep.h)(0x6ADB13E4)
+F (.\Driver\src\hk32f030m_gpio.c)(0x6ADB13E4)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wall -Wextra -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./Driver/inc -I ./CMSIS/Include -I ./User-D__UVISION_VERSION="540" -DHK32F030MF4P6-o ./objects/hk32f030m_gpio.o -MMD)
+I (Driver\inc\hk32f030m_gpio.h)(0x6ADB13E4)
+I (CMSIS\Include\hk32f030m.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_2k.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_common.h)(0x6ADB13E4)
+I (CMSIS\Include\.\core_cm0.h)(0x6ACDD828)
+I (CMSIS\Include\.\system_hk32f030m.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_conf.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_rcc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_crc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_exti.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_flash.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_misc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_adc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_syscfg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_def.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_i2c.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_iwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_pwr.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_spi.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_tim.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_usart.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_wwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_awu.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_beep.h)(0x6ADB13E4)
+F (.\Driver\src\hk32f030m_i2c.c)(0x6ADB13E4)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wall -Wextra -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./Driver/inc -I ./CMSIS/Include -I ./User-D__UVISION_VERSION="540" -DHK32F030MF4P6-o ./objects/hk32f030m_i2c.o -MMD)
+I (Driver\inc\hk32f030m_i2c.h)(0x6ADB13E4)
+I (CMSIS\Include\hk32f030m.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_2k.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_common.h)(0x6ADB13E4)
+I (CMSIS\Include\.\core_cm0.h)(0x6ACDD828)
+I (CMSIS\Include\.\system_hk32f030m.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_conf.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_rcc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_crc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_exti.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_flash.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_gpio.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_misc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_adc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_syscfg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_def.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_iwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_pwr.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_spi.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_tim.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_usart.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_wwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_awu.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_beep.h)(0x6ADB13E4)
+F (.\Driver\src\hk32f030m_iwdg.c)(0x6ADC4849)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wall -Wextra -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./Driver/inc -I ./CMSIS/Include -I ./User-D__UVISION_VERSION="540" -DHK32F030MF4P6-o ./objects/hk32f030m_iwdg.o -MMD)
+I (Driver\inc\hk32f030m_iwdg.h)(0x6ADC4849)
+I (CMSIS\Include\hk32f030m.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_2k.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_common.h)(0x6ADB13E4)
+I (CMSIS\Include\.\core_cm0.h)(0x6ACDD828)
+I (CMSIS\Include\.\system_hk32f030m.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_conf.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_rcc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_crc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_exti.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_flash.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_gpio.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_misc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_adc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_syscfg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_def.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_i2c.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_pwr.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_spi.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_tim.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_usart.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_wwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_awu.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_beep.h)(0x6ADB13E4)
+F (.\Driver\src\hk32f030m_misc.c)(0x6ADC4849)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wall -Wextra -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./Driver/inc -I ./CMSIS/Include -I ./User-D__UVISION_VERSION="540" -DHK32F030MF4P6-o ./objects/hk32f030m_misc.o -MMD)
+I (Driver\inc\hk32f030m_misc.h)(0x6ADC4849)
+I (CMSIS\Include\hk32f030m.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_2k.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_common.h)(0x6ADB13E4)
+I (CMSIS\Include\.\core_cm0.h)(0x6ACDD828)
+I (CMSIS\Include\.\system_hk32f030m.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_conf.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_rcc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_crc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_exti.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_flash.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_gpio.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_adc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_syscfg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_def.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_i2c.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_iwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_pwr.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_spi.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_tim.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_usart.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_wwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_awu.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_beep.h)(0x6ADB13E4)
+F (.\Driver\src\hk32f030m_pwr.c)(0x6ADB13E4)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wall -Wextra -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./Driver/inc -I ./CMSIS/Include -I ./User-D__UVISION_VERSION="540" -DHK32F030MF4P6-o ./objects/hk32f030m_pwr.o -MMD)
+I (Driver\inc\hk32f030m_pwr.h)(0x6ADC4849)
+I (CMSIS\Include\hk32f030m.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_2k.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_common.h)(0x6ADB13E4)
+I (CMSIS\Include\.\core_cm0.h)(0x6ACDD828)
+I (CMSIS\Include\.\system_hk32f030m.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_conf.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_rcc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_crc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_exti.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_flash.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_gpio.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_misc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_adc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_syscfg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_def.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_i2c.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_iwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_spi.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_tim.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_usart.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_wwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_awu.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_beep.h)(0x6ADB13E4)
+F (.\Driver\src\hk32f030m_rcc.c)(0x6ADB13E4)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wall -Wextra -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./Driver/inc -I ./CMSIS/Include -I ./User-D__UVISION_VERSION="540" -DHK32F030MF4P6-o ./objects/hk32f030m_rcc.o -MMD)
+I (Driver\inc\hk32f030m_rcc.h)(0x6ADB13E4)
+I (CMSIS\Include\hk32f030m.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_2k.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_common.h)(0x6ADB13E4)
+I (CMSIS\Include\.\core_cm0.h)(0x6ACDD828)
+I (CMSIS\Include\.\system_hk32f030m.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_conf.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_crc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_exti.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_flash.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_gpio.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_misc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_adc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_syscfg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_def.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_i2c.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_iwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_pwr.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_spi.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_tim.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_usart.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_wwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_awu.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_beep.h)(0x6ADB13E4)
+F (.\Driver\src\hk32f030m_spi.c)(0x6ADB13E4)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wall -Wextra -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./Driver/inc -I ./CMSIS/Include -I ./User-D__UVISION_VERSION="540" -DHK32F030MF4P6-o ./objects/hk32f030m_spi.o -MMD)
+I (Driver\inc\hk32f030m_spi.h)(0x6ADB13E4)
+I (CMSIS\Include\hk32f030m.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_2k.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_common.h)(0x6ADB13E4)
+I (CMSIS\Include\.\core_cm0.h)(0x6ACDD828)
+I (CMSIS\Include\.\system_hk32f030m.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_conf.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_rcc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_crc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_exti.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_flash.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_gpio.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_misc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_adc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_syscfg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_def.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_i2c.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_iwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_pwr.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_tim.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_usart.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_wwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_awu.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_beep.h)(0x6ADB13E4)
+F (.\Driver\src\hk32f030m_syscfg.c)(0x6ADC4849)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wall -Wextra -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./Driver/inc -I ./CMSIS/Include -I ./User-D__UVISION_VERSION="540" -DHK32F030MF4P6-o ./objects/hk32f030m_syscfg.o -MMD)
+I (Driver\inc\hk32f030m_syscfg.h)(0x6ADC4849)
+I (CMSIS\Include\hk32f030m.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_2k.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_common.h)(0x6ADB13E4)
+I (CMSIS\Include\.\core_cm0.h)(0x6ACDD828)
+I (CMSIS\Include\.\system_hk32f030m.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_conf.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_rcc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_crc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_exti.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_flash.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_gpio.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_misc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_adc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_def.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_i2c.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_iwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_pwr.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_spi.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_tim.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_usart.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_wwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_awu.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_beep.h)(0x6ADB13E4)
+F (.\Driver\src\hk32f030m_tim.c)(0x6ADB13E5)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wall -Wextra -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./Driver/inc -I ./CMSIS/Include -I ./User-D__UVISION_VERSION="540" -DHK32F030MF4P6-o ./objects/hk32f030m_tim.o -MMD)
+I (Driver\inc\hk32f030m_tim.h)(0x6ADB13E4)
+I (CMSIS\Include\hk32f030m.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_2k.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_common.h)(0x6ADB13E4)
+I (CMSIS\Include\.\core_cm0.h)(0x6ACDD828)
+I (CMSIS\Include\.\system_hk32f030m.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_conf.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_rcc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_crc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_exti.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_flash.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_gpio.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_misc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_adc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_syscfg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_def.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_i2c.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_iwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_pwr.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_spi.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_usart.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_wwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_awu.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_beep.h)(0x6ADB13E4)
+F (.\Driver\src\hk32f030m_usart.c)(0x6ADB13E5)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wall -Wextra -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./Driver/inc -I ./CMSIS/Include -I ./User-D__UVISION_VERSION="540" -DHK32F030MF4P6-o ./objects/hk32f030m_usart.o -MMD)
+I (Driver\inc\hk32f030m_usart.h)(0x6ADC4849)
+I (CMSIS\Include\hk32f030m.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_2k.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_common.h)(0x6ADB13E4)
+I (CMSIS\Include\.\core_cm0.h)(0x6ACDD828)
+I (CMSIS\Include\.\system_hk32f030m.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_conf.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_rcc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_crc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_exti.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_flash.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_gpio.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_misc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_adc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_syscfg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_def.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_i2c.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_iwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_pwr.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_spi.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_tim.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_wwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_awu.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_beep.h)(0x6ADB13E4)
+F (.\Driver\src\hk32f030m_wwdg.c)(0x6ADC4849)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wall -Wextra -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./Driver/inc -I ./CMSIS/Include -I ./User-D__UVISION_VERSION="540" -DHK32F030MF4P6-o ./objects/hk32f030m_wwdg.o -MMD)
+I (Driver\inc\hk32f030m_wwdg.h)(0x6ADC4849)
+I (CMSIS\Include\hk32f030m.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_2k.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_common.h)(0x6ADB13E4)
+I (CMSIS\Include\.\core_cm0.h)(0x6ACDD828)
+I (CMSIS\Include\.\system_hk32f030m.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_conf.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_rcc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_crc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_exti.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_flash.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_gpio.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_misc.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_adc.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_syscfg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_def.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_i2c.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_iwdg.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_pwr.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_spi.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_tim.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_usart.h)(0x6ADC4849)
+I (Driver\inc\hk32f030m_awu.h)(0x6ADB13E4)
+I (Driver\inc\hk32f030m_beep.h)(0x6ADB13E4)
+F (.\Driver\inc\hk32f030m_adc.h)(0x6ADB13E4)()
+F (.\Driver\inc\hk32f030m_awu.h)(0x6ADB13E4)()
+F (.\Driver\inc\hk32f030m_beep.h)(0x6ADB13E4)()
+F (.\Driver\inc\hk32f030m_conf.h)(0x6ADB13E4)()
+F (.\Driver\inc\hk32f030m_conf_Template.h)(0x6ADC4849)()
+F (.\Driver\inc\hk32f030m_crc.h)(0x6ADC4849)()
+F (.\Driver\inc\hk32f030m_dbgmcu.h)(0x6ADC4849)()
+F (.\Driver\inc\hk32f030m_def.h)(0x6ADC4849)()
+F (.\Driver\inc\hk32f030m_exti.h)(0x6ADC4849)()
+F (.\Driver\inc\hk32f030m_flash.h)(0x6ADB13E4)()
+F (.\Driver\inc\hk32f030m_gpio.h)(0x6ADB13E4)()
+F (.\Driver\inc\hk32f030m_i2c.h)(0x6ADB13E4)()
+F (.\Driver\inc\hk32f030m_iwdg.h)(0x6ADC4849)()
+F (.\Driver\inc\hk32f030m_misc.h)(0x6ADC4849)()
+F (.\Driver\inc\hk32f030m_pwr.h)(0x6ADC4849)()
+F (.\Driver\inc\hk32f030m_rcc.h)(0x6ADB13E4)()
+F (.\Driver\inc\hk32f030m_spi.h)(0x6ADB13E4)()
+F (.\Driver\inc\hk32f030m_syscfg.h)(0x6ADC4849)()
+F (.\Driver\inc\hk32f030m_tim.h)(0x6ADB13E4)()
+F (.\Driver\inc\hk32f030m_usart.h)(0x6ADC4849)()
+F (.\Driver\inc\hk32f030m_wwdg.h)(0x6ADC4849)()
+F (.\CMSIS\Source\system_hk32f030m.c)(0x6ADB13E4)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wall -Wextra -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ./Driver/inc -I ./CMSIS/Include -I ./User-D__UVISION_VERSION="540" -DHK32F030MF4P6-o ./objects/system_hk32f030m.o -MMD)
+I (CMSIS\Include\hk32f030m.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_2k.h)(0x6ADB13E4)
+I (CMSIS\Include\.\hk32f030m_common.h)(0x6ADB13E4)
+I (CMSIS\Include\.\core_cm0.h)(0x6ACDD828)
+I (CMSIS\Include\.\system_hk32f030m.h)(0x6ADC4849)
+F (.\CMSIS\Include\system_hk32f030m.h)(0x6ADC4849)()
+F (.\CMSIS\Include\hk32f030m.h)(0x6ADB13E4)()
+F (.\CMSIS\Include\hk32f030m_2k.h)(0x6ADB13E4)()
+F (.\CMSIS\Include\hk32f030m_common.h)(0x6ADB13E4)()
+F (.\CMSIS\Include\core_cm0.h)(0x6ACDD828)()
+F (.\CMSIS\Startup\startup_hk32f030m.s)(0x6AD722EB)(--target=arm-arm-none-eabi -mcpu=cortex-m0 -masm=auto  -Wa,armasm,--diag_suppress=A1950W -c-gdwarf-4-Wa,armasm,--pd,"__UVISION_VERSION SETA 540"-o ./objects/startup_hk32f030m.o)
